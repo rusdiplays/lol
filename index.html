@@ -1,0 +1,42 @@
+# Webhook Spammer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Spammer</title>
+    <script>
+        function spamWebhook() {
+            const webhookUrl = document.getElementById("webhookUrl").value;
+            const message = document.getElementById("message").value;
+            const count = document.getElementById("count").value;
+
+            for (let i = 0; i < count; i++) {
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ content: message })
+                })
+                .then(response => console.log(`Message sent: ${message}`))
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Webhook Spammer</h1>
+    <label for="webhookUrl">Webhook URL:</label>
+    <input type="text" id="webhookUrl" placeholder="Enter webhook URL" required>
+    <br>
+    <label for="message">Message:</label>
+    <input type="text" id="message" placeholder="Enter message" required>
+    <br>
+    <label for="count">Number of Messages:</label>
+    <input type="number" id="count" placeholder="Enter number of messages" required>
+    <br>
+    <button onclick="spamWebhook()">Spam Webhook</button>
+</body>
+</html>
